@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<maui:ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:maui="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:ddClothingStoreMaui="clr-namespace:DDClothingStoreMAUI"
+                  x:Class="DDClothingStoreMAUI.View.ItemListPage"
+                  x:Name="ItemsPage">
+    <ContentPage.Content>
+        <Grid BackgroundColor="White" RowDefinitions="50, 50, *">
+            <!--  Navigation Bar -->
+            <Grid BackgroundColor="Black" Grid.Row="0" ColumnDefinitions="*, 8*" HorizontalOptions="Fill">
+                <Frame Padding="0" BackgroundColor="Black" HasShadow="False" HeightRequest="45" WidthRequest="40" Grid.Column="0">
+                    <Label Margin="0,10" FontFamily="MaterialFontFamily" FontSize="28" HorizontalOptions="Start" Text="&#xf141;" TextColor="White" />
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackButtonClicked" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Label x:Name="CategoryTitle" Margin="-40,10,10,0" FontAttributes="Bold" FontSize="20" Text="" HorizontalTextAlignment="Center" TextColor="White" Grid.Column="1" />
+            </Grid>
+            <!-- Search Bar  -->
+            <StackLayout Grid.Row="1" Margin="10,10,10,0">
+                <Frame
+                    Padding="0,0,0,0"
+                    BackgroundColor="#E8E8E8"
+                    CornerRadius="40"
+                    HasShadow="False"
+                    HeightRequest="40">
+                    <SearchBar Placeholder="Search for items" SearchButtonPressed="SearchBar_OnSearchButtonPressed"  x:Name="ItemSearchBar"></SearchBar>
+                </Frame>
+            </StackLayout>
+            <ScrollView VerticalScrollBarVisibility="Never" Margin="10,10,10,0" Grid.Row="2">
+                <StackLayout>
+                        <CollectionView x:Name="ItemsCollectionView">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" Span="2" 
+                                                 HorizontalItemSpacing="10"
+                                                 VerticalItemSpacing="10"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame BackgroundColor="LightGray"
+                                           CornerRadius="10"
+                                           HasShadow="False"
+                                           IsClippedToBounds="True">
+                                        <Grid Margin="0" HorizontalOptions="Center" BackgroundColor="LightGray" >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="8*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                                <Image Grid.Row="0"
+                                                    Aspect="AspectFit"
+                                                    Source="{Binding ItemImage}"/>
+                                                <Label Grid.Row="1"
+                                                       FontSize="20"
+                                                       Text="{Binding ItemPrice}"
+                                                       TextColor="Black">
+                                                </Label>
+                                                <Label  Grid.Row="2"
+                                                        FontSize="16"
+                                                        Text="{Binding ItemName}"
+                                                        TextColor="Black">
+                                                </Label>
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnItemClick" />
+                                            </Grid.GestureRecognizers>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</maui:ContentPage>

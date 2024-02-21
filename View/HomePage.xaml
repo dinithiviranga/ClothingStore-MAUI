@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Name="HomeView"
+                  xmlns:viewModel1="clr-namespace:DDClothingStoreMAUI.ViewModel"
+                  xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                  x:Class="DDClothingStoreMAUI.View.HomePage">
+    <ContentPage.BindingContext>
+        <viewModel1:HomePageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+              RowDefinitions="Auto, Auto, Auto, *">
+            <!-- Logo -->
+            <Grid BackgroundColor="Black" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Margin="10,10,10,10"
+                    Aspect="AspectFill"
+                    Source="store_logo" Grid.Column="0"/>
+                <BoxView Grid.Column="1" />
+            </Grid>
+            <!-- Category List -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never" VerticalOptions="Fill" Grid.Row="1">
+                <StackLayout Margin="0,0,0,0">
+                    <StackLayout Margin="0,10,0,0"
+                        HeightRequest="90"
+                        Orientation="Horizontal">
+                        <CollectionView ItemsSource="{Binding Categories}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Frame
+                                            Margin="10,5,10,5"
+                                            Padding="0"
+                                            CornerRadius="30"
+                                            HasShadow="True"
+                                            HeightRequest="50"
+                                            IsClippedToBounds="False"
+                                            WidthRequest="50">
+                                            <Image
+                                                Margin="10"
+                                                Aspect="AspectFit"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Source="{Binding CategoryImage}"
+                                                VerticalOptions="CenterAndExpand" />
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference HomeView}, Path=BindingContext.CategoryTapCommand}" CommandParameter="{Binding .CategoryTitle}" />
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding CategoryTitle}"
+                                            TextColor="Black">
+                                        </Label>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            <!-- Rest of the content -->
+            <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never" Grid.Row="3" Margin="0,0,0,0">
+                <StackLayout>
+                    <StackLayout Spacing="0">
+                        <Grid Margin="15,5" HorizontalOptions="Fill" VerticalOptions="Start" HeightRequest="285">
+                            <Image Source= "kids_dress" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                            <Image Source= "overlayCol" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                            <Label Text="KID'S FASHION DRESS" TextColor="White" FontSize="35" Margin="10,20" VerticalOptions="End" HorizontalTextAlignment="Center"/>
+                        </Grid>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference HomeView}, Path=BindingContext.CategoryTapCommand}" CommandParameter="Kids" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                        <StackLayout Spacing="0" HorizontalOptions="Fill" VerticalOptions="Fill">
+                            <Grid Margin="15,5" HorizontalOptions="Fill" VerticalOptions="Start" HeightRequest="285">
+                                <Image Source= "baby_clothing" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                                <Image Source= "overlayCol" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                                <Label Text="20% OFF ON BABY ITEMS" TextColor="White" FontSize="35" Margin="10,20" VerticalOptions="End" HorizontalTextAlignment="Center"/>
+                            </Grid>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference HomeView}, Path=BindingContext.CategoryTapCommand}" CommandParameter="Baby" />
+                            </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <StackLayout Spacing="0" HorizontalOptions="Fill" VerticalOptions="Fill">
+                        <Grid Margin="15,5" HorizontalOptions="Fill" VerticalOptions="Start" HeightRequest="285">
+                            <Image Source= "winter_fashion" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                            <Image Source= "overlayCol" Aspect="Fill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                            <Label Text="WINTER FASHION FLASH SALE" TextColor="White" FontSize="35" Margin="10,20" VerticalOptions="End" HorizontalTextAlignment="Center"/>
+                        </Grid>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference HomeView}, Path=BindingContext.CategoryTapCommand}" CommandParameter="Winterwear" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
